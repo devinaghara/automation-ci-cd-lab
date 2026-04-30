@@ -28,7 +28,7 @@ jobs:
 
       # 4. Run tests (if any fail, pipeline stops here)
       - name: Run tests
-        run: npm test -- --watchAll=false
+        run: npm test
 
       # 5. Log in to Docker Hub using secrets
       - name: Log in to Docker Hub
