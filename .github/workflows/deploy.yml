@@ -1,0 +1,50 @@
+  name: Build and Deploy React App
+
+# Trigger: runs on every push to main branch
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest   # GitHub spins up a fresh Ubuntu VM
+
+    steps:
+      # 1. Check out your code onto the runner
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Install Node and cache node_modules for speed
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # 3. Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # 4. Run tests (if any fail, pipeline stops here)
+      - name: Run tests
+        run: npm test -- --watchAll=false
+
+      # 5. Log in to Docker Hub using secrets
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # 6. Build and push the Docker image
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          # Tags the image as: yourusername/my-react-app:latest
+          # and also with the git commit SHA for traceability
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/my-react-app:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/my-react-app:${{ github.sha }}
