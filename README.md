@@ -1,16 +1,120 @@
-# React + Vite
+# 🚀 React CI/CD Pipeline with Docker & GitHub Actions
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project demonstrates a complete **CI/CD pipeline** for a React application using modern DevOps practices.
 
-Currently, two official plugins are available:
+It includes:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+* ⚛️ React app (built with Vite)
+* 🧪 Unit testing with Vitest
+* 🐳 Docker multi-stage build
+* 🌐 Nginx for production serving
+* ⚙️ Automated CI/CD using GitHub Actions
+* 📦 Docker image publishing to Docker Hub
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 📁 Project Structure
 
-## Expanding the ESLint configuration
+```
+my-react-app/
+├── src/
+│   ├── App.jsx
+│   └── App.test.jsx
+├── public/
+├── package.json
+├── Dockerfile
+├── nginx.conf
+├── .dockerignore
+└── .github/
+    └── workflows/
+        └── deploy.yml
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## ⚙️ CI/CD Workflow
+
+This project uses **GitHub Actions** to automate the pipeline.
+
+### 🔄 Workflow Steps
+
+1. Checkout code
+2. Install dependencies
+3. Run tests (Vitest)
+4. Build Docker image
+5. Push image to Docker Hub
+
+---
+
+## 🧪 Testing
+
+* Framework: Vitest
+* Library: React Testing Library
+
+Run tests locally:
+
+```bash
+npm test
+```
+
+---
+
+## 🐳 Docker Setup
+
+### Build Docker Image
+
+```bash
+docker build -t yourusername/my-react-app .
+```
+
+### Run Container
+
+```bash
+docker run -p 3000:80 yourusername/my-react-app
+```
+
+Visit:
+👉 http://localhost:3000
+
+---
+
+## 🏗️ Docker Architecture
+
+* **Stage 1:** Build React app using Node.js
+* **Stage 2:** Serve using Nginx
+
+✔ Optimized image size
+✔ Production-ready setup
+
+---
+
+## 🔐 Environment Setup
+
+You must configure GitHub Secrets:
+
+| Secret Name        | Description                            |
+| ------------------ | -------------------------------------- |
+| DOCKERHUB_USERNAME | Your Docker Hub username               |
+| DOCKERHUB_TOKEN    | Docker Hub access token (Read & Write) |
+
+---
+
+## 🚀 Deployment Flow
+
+Every push to `main` branch triggers:
+
+```text
+Code Push → Test → Build → Dockerize → Push to Docker Hub
+```
+
+---
+
+## 🧠 Key Learnings
+
+* CI/CD pipeline setup from scratch
+* Docker multi-stage builds
+* Handling environment issues (DNS, tokens, paths)
+* Debugging real-world pipeline failures
+* Difference between CRA vs Vite build outputs
+
+---
