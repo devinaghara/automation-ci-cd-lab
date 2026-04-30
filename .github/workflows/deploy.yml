@@ -1,6 +1,6 @@
-  name: Build and Deploy React App
+name: Build and Deploy React App
 
-# Trigger: runs on every push to main branch
+# Trigger: runs on every push to master branch
 on:
   push:
     branches:
