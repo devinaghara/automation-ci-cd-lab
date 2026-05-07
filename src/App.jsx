@@ -25,6 +25,7 @@ function App() {
   return (
     <div style={{ textAlign: "center", marginTop: "50px" }}>
       <h1>CI/CD Demo App</h1>
+      <h3>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam veniam suscipit et modi deserunt temporibus facere quod nobis, sapiente totam labore quia a. Magni ipsam atque perferendis perspiciatis obcaecati soluta non amet modi doloremque maiores?</h3>
 
       <h2 data-testid="count">{count}</h2>
 
