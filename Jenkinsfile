@@ -12,7 +12,13 @@ pipeline {
 
     stages {
 
-        stage('Checkout Code') {
+        stage('Clean Workspace') {
+            steps {
+                deleteDir()
+            }
+        }
+
+        stage('Checkout') {
             steps {
                 checkout scm
             }
@@ -21,18 +27,18 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 sh '''
-                    rm -rf node_modules package-lock.json
-                    npm install
+                npm cache clean --force
+                npm install
                 '''
             }
         }
 
-        stage('Run Tests') {
+        stage('Test') {
             steps {
                 sh 'npm test'
             }
         }
-
+        
         stage('Build React App') {
             steps {
                 sh 'npm run build'
